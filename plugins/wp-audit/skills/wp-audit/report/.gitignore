@@ -1,0 +1,4 @@
+# Ignore generated audit reports; keep only the template (and this file).
+*
+!.gitignore
+!REPORT-TEMPLATE.md

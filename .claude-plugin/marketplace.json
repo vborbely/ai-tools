@@ -1,0 +1,19 @@
+{
+  "name": "ai-tools",
+  "owner": {
+    "name": "Viktor Borbely",
+    "email": "hello@borbelyviktor.hu"
+  },
+  "metadata": {
+    "description": "AI-native tools for Claude Code — skills and MCP servers for web auditing and optimization."
+  },
+  "plugins": [
+    {
+      "name": "wp-audit",
+      "source": "./plugins/wp-audit",
+      "description": "Black-box WordPress security and health auditor with a scored remediation report.",
+      "category": "security",
+      "tags": ["wordpress", "security", "audit", "seo"]
+    }
+  ]
+}

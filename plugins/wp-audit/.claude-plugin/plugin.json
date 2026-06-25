@@ -1,0 +1,12 @@
+{
+  "name": "wp-audit",
+  "displayName": "WordPress Auditor",
+  "description": "Black-box WordPress security and health auditor. Fingerprints core/plugins/themes, probes the public attack surface (XML-RPC, user enumeration, exposed files), checks hardening, TLS, performance, and SEO, and produces a scored report with a prioritized remediation plan.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Viktor Borbely",
+    "email": "borbelyv@gmail.com"
+  },
+  "license": "MIT",
+  "keywords": ["wordpress", "security", "audit", "seo", "hardening", "wp"]
+}
