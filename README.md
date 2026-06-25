@@ -6,7 +6,7 @@ A Claude Code **plugin marketplace** of AI-native tools — skills and (soon) MC
 
 ```bash
 # In Claude Code, add this repo as a marketplace, then install a plugin:
-/plugin marketplace add borbelyv/ai-tools      # replace with your published repo
+/plugin marketplace add vborbely/ai-tools      # replace with your published repo
 /plugin install wp-audit@ai-tools
 ```
 
