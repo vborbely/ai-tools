@@ -14,6 +14,13 @@
       "description": "Black-box WordPress security and health auditor with a scored remediation report.",
       "category": "security",
       "tags": ["wordpress", "security", "audit", "seo"]
+    },
+    {
+      "name": "coos",
+      "source": "./plugins/coos",
+      "description": "Company OS toolkit — interactive workflow/process documentation interviewer that writes into a Gitea-hosted Company OS knowledge base via Pull Request.",
+      "category": "documentation",
+      "tags": ["company-os", "workflow", "documentation", "sop", "knowledge-base", "gitea"]
     }
   ]
 }

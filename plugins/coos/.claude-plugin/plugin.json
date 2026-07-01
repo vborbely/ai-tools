@@ -1,0 +1,12 @@
+{
+  "name": "coos",
+  "displayName": "Company OS",
+  "description": "Toolkit for building a company's internal operations knowledge base (\"Company OS\"). Starts with workflow-def, an interactive workflow/process documentation interviewer that captures a colleague's actual process step by step, surfaces de-facto best-practice steps that may be missing, and writes the result into a Gitea-hosted Company OS repo via Pull Request.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Viktor Borbely",
+    "email": "hello@borbelyviktor.hu"
+  },
+  "license": "MIT",
+  "keywords": ["company-os", "workflow", "documentation", "knowledge-base", "process", "sop", "gitea"]
+}
