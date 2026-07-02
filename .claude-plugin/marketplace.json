@@ -5,7 +5,7 @@
     "email": "hello@borbelyviktor.hu"
   },
   "metadata": {
-    "description": "AI-native tools for Claude Code — skills and MCP servers for web auditing and optimization."
+    "description": "AI-native tools for Claude Code — skills and MCP servers."
   },
   "plugins": [
     {

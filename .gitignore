@@ -5,3 +5,4 @@ Thumbs.db
 # Generated audit reports (each plugin's report/ keeps only REPORT-TEMPLATE.md).
 # This also catches stray reports written outside the report/ folder.
 WP-AUDIT-REPORT*.md
+/temp
