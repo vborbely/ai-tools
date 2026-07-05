@@ -1,6 +1,6 @@
 ---
 name: workflow-def
-description: Interactive "grill me"-style interviewer that documents one company workflow in depth. Asks targeted questions to break a colleague's process into atomic steps, cross-checks against de-facto best-practice playbooks to surface missing steps as flagged recommendations, and writes the result into a Gitea-hosted Company OS knowledge base repo as a branch + Pull Request (never directly to main). Requires a connected Gitea MCP server. Use when the user says "document this workflow", "grill me about our process", "build our company OS", "capture how X team does Y", "interview me about a process", or wants to turn a colleague's tacit process knowledge into a Company OS playbook.
+description: Interactive "grill me"-style interviewer that documents one company workflow in depth. Asks targeted questions to break a colleague's process into atomic steps, cross-checks against de-facto best-practice playbooks to surface missing steps as flagged recommendations, and writes the result into a Gitea-hosted Company OS knowledge base repo as a branch + Pull Request (never directly to main). Requires a connected Gitea MCP server; if a coos-mcp MCP server is also connected, uses it to search existing docs instead of full-text tree reads, for a faster duplicate check. Use when the user says "document this workflow", "grill me about our process", "build our company OS", "capture how X team does Y", "interview me about a process", or wants to turn a colleague's tacit process knowledge into a Company OS playbook.
 allowed-tools:
   - Read
   - mcp__gitea__get_file_contents
@@ -12,6 +12,7 @@ allowed-tools:
   - mcp__gitea__delete_file
   - mcp__gitea__pull_request_write
   - mcp__gitea__pull_request_read
+  - mcp__coos-mcp__search_knowledge
 ---
 
 # Workflow-Def: Company OS Workflow Interviewer
@@ -52,8 +53,10 @@ Before writing anything, `mcp__gitea__get_file_contents` the target repo's **act
 
 ### Phase 2 — Duplicate check & domain placement
 
-1. Check `KNOWLEDGE_BASE.md`'s domain table and search `knowledge/teams/**` (via `mcp__gitea__get_repository_tree`, recursive) for a file that already documents this workflow — per the target repo's own "do not create a duplicate concept" rule.
-2. **If an existing doc is found:** `get_file_contents` it, summarize its current steps back to the user, and treat this session as a **refine** pass. Ask whether this is (a) an in-place edit/extension of the same file, or (b) a full replacement — a replacement sets `supersedes`/`superseded_by` and archives the old file in Phase 7.
+1. **Check whether `coos-mcp` is connected first** — look for `mcp__coos-mcp__search_knowledge` among this session's available tools.
+   - **If connected:** call `search_knowledge` with `query` built from the one-liner's key terms, scoped to the target repo via `org`/`repo`, and `type: "playbook"` to narrow to workflow docs. If the first query comes back empty, retry once with a broader synonym before concluding nothing exists. This returns titles/descriptions/tags/400-char snippets across the whole repo in a single call, instead of a recursive tree walk plus full-text reads of every candidate file — much cheaper and faster, and it's the preferred path whenever available.
+   - **If not connected (fallback):** check `KNOWLEDGE_BASE.md`'s domain table and search `knowledge/teams/**` (via `mcp__gitea__get_repository_tree`, recursive) for a file that already documents this workflow — per the target repo's own "do not create a duplicate concept" rule.
+2. **If a plausible match turns up** (via either path): `get_file_contents` only that one candidate file to load its full content, summarize its current steps back to the user, and treat this session as a **refine** pass. Ask whether this is (a) an in-place edit/extension of the same file, or (b) a full replacement — a replacement sets `supersedes`/`superseded_by` and archives the old file in Phase 7.
 3. **If nothing is found:** ask which team/domain owns this workflow (sales / marketing / design / brand / product / eng / ops / other — offer "other" with a custom folder name) to target `knowledge/teams/<domain>/<slug>.md`. Do not default to `knowledge/source-of-truth/` — that folder is for already-reviewed, promoted knowledge only, and this is a fresh, unverified draft.
 
 ### Phase 3 — Branch + draft PR
